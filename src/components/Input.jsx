@@ -7,8 +7,8 @@ export const Input = ({ label, id, error, ...props }) => {
                 <label
                     htmlFor={id}
                     style={{
-                        fontSize: '0.875rem',
-                        fontWeight: 500,
+                        fontSize: '0.9rem',
+                        fontWeight: 600,
                         color: 'var(--color-text-secondary)'
                     }}
                 >
@@ -19,17 +19,22 @@ export const Input = ({ label, id, error, ...props }) => {
                 id={id}
                 style={{
                     padding: '0.75rem',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid',
-                    borderColor: error ? 'var(--color-error)' : 'var(--color-bg-surface)',
-                    backgroundColor: 'rgba(255,255,255,0.03)',
+                    borderRadius: 'var(--radius-sm)',
+                    border: '1px solid var(--color-bg-surface)',
+                    backgroundColor: 'white',
                     color: 'var(--color-text-primary)',
                     fontSize: '1rem',
                     outline: 'none',
-                    transition: 'border-color var(--transition-fast)'
+                    transition: 'border-color var(--transition-fast), box-shadow var(--transition-fast)'
                 }}
-                onFocus={(e) => e.target.style.borderColor = 'var(--color-primary)'}
-                onBlur={(e) => e.target.style.borderColor = error ? 'var(--color-error)' : 'var(--color-bg-surface)'}
+                onFocus={(e) => {
+                    e.target.style.borderColor = 'var(--color-primary)';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.1)';
+                }}
+                onBlur={(e) => {
+                    e.target.style.borderColor = error ? 'var(--color-error)' : 'var(--color-bg-surface)';
+                    e.target.style.boxShadow = 'none';
+                }}
                 {...props}
             />
             {error && (

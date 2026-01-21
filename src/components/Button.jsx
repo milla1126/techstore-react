@@ -1,33 +1,51 @@
 import React from 'react';
 
-export const Button = ({ children, variant = 'primary', size = 'md', className = '', ...props }) => {
-    const baseStyle = "btn";
-    const variants = {
-        primary: "btn-primary",
-        outline: "border border-current text-primary hover:bg-primary/10",
-        ghost: "hover:bg-gray-100 dark:hover:bg-slate-800"
+export const Button = ({ children, variant = 'primary', size = 'md', className = '', style = {}, ...props }) => {
+
+    const getVariantStyle = () => {
+        switch (variant) {
+            case 'outline':
+                return {
+                    backgroundColor: 'transparent',
+                    border: '1px solid var(--color-primary)',
+                    color: 'var(--color-primary)'
+                };
+            case 'ghost':
+                return {
+                    backgroundColor: 'transparent',
+                    color: 'var(--color-text-secondary)'
+                };
+            case 'primary':
+            default:
+                return {
+                    backgroundColor: 'var(--color-primary)',
+                    color: 'white',
+                    border: '1px solid var(--color-primary)'
+                };
+        }
     };
 
-    const sizes = {
-        sm: "px-3 py-1.5 text-sm",
-        md: "px-4 py-2",
-        lg: "px-6 py-3 text-lg"
+    const getSizeStyle = () => {
+        switch (size) {
+            case 'sm': return { padding: '0.25rem 0.5rem', fontSize: '0.8rem' };
+            case 'lg': return { padding: '0.75rem 1.5rem', fontSize: '1.1rem' };
+            case 'md':
+            default: return { padding: '0.5rem 1rem', fontSize: '1rem' };
+        }
     };
-
-    // Note: We are using regular CSS classes from index.css for now, mixed with some potential Tailwind utility-like names
-    // But since we are strict Vanilla CSS + Tokens, let's stick to the classes defined in index.css
-    // For this generic component, I'll rely mainly on the explicit props.
-
-    let variantClass = variant === 'primary' ? 'btn-primary' : '';
 
     return (
         <button
-            className={`${baseStyle} ${variantClass} ${className}`}
+            className={`btn ${className}`}
             style={{
-                // Inline styles for quick improvements, ideally moved to CSS classes later
+                borderRadius: 'var(--radius-sm)', // Shark/Retail feel
+                fontWeight: 600,
                 cursor: 'pointer',
-                opacity: props.disabled ? 0.7 : 1,
-                ...props.style
+                opacity: props.disabled ? 0.6 : 1,
+                pointerEvents: props.disabled ? 'none' : 'auto',
+                ...getVariantStyle(),
+                ...getSizeStyle(),
+                ...style // Allow overrides
             }}
             {...props}
         >
