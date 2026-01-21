@@ -42,7 +42,6 @@ export const CartSidebar = () => {
                 right: 0,
                 bottom: 0,
                 width: '100%',
-                width: '100%',
                 maxWidth: '400px',
                 // Responsive adjustment inline (in a real app, use media queries in CSS)
                 '@media (max-width: 480px)': {
