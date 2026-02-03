@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { registerUser } from "../services/auth.service";
+
 
 export const Register = () => {
     const [formData, setFormData] = useState({
@@ -24,18 +26,21 @@ export const Register = () => {
             alert("Las contraseñas no coinciden");
             return;
         }
-        const result = register({
-            name: formData.name,
-            email: formData.email,
-            password: formData.password
-        });
+        const handleSubmit = async (e) => {
+          e.preventDefault();
 
-        if (result.success) {
-            navigate('/profile');
-        } else {
-            alert(result.message);
-        }
-    };
+        try {
+          const data = await registerUser({
+             nombre,
+             email,
+             password
+          });
+
+          alert("Usuario registrado correctamente");
+        }catch (error) {
+          alert(error.response?.data?.message || "Error al registrar");
+       }
+};
 
     return (
         <div className="container" style={{

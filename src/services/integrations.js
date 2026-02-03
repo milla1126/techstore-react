@@ -1,18 +1,13 @@
-// Placeholder service for Integrations
+const API_URL = "http://localhost:3000/api";
 
 export const Integrations = {
-    ERP: {
-        syncStock: () => console.log("Syncing stock with ERP..."),
-        syncSales: () => console.log("Syncing sales with ERP...")
-    },
-    CRM: {
-        syncCustomer: (customer) => console.log("Syncing customer to CRM...", customer)
-    },
-    Payments: {
-        processPayment: (amount) => console.log(`Processing payment of $${amount} via Payment Gateway...`)
-    },
-    Shipping: {
-        calculateRate: (address) => console.log("Calculating shipping rate...", address),
-        createLabel: (order) => console.log("Creating shipping label for order...", order)
+  Products: {
+    getAll: async () => {
+      const response = await fetch(`${API_URL}/productos`);
+      if (!response.ok) {
+        throw new Error("Error al obtener productos");
+      }
+      return response.json();
     }
+  }
 };
